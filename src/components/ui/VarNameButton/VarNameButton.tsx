@@ -1,7 +1,5 @@
 import styles from "./VarNameButton.module.scss";
 
-
-
 interface IVarNameButton {
   label: string
 }

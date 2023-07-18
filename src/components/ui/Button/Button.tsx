@@ -2,13 +2,14 @@ import styles from "./Button.module.scss";
 
 interface IButton {
   label: string
+  onClick?: ()=> void
 }
 
-const Button = ({label}: IButton) => {
+const Button = ({label, onClick}: IButton) => {
 
   return (
     <>
-      <button className={styles.button}>{label}</button>
+      <button className={styles.button} onClick={onClick}>{label}</button>
       {/*<button>{label}</button>*/}
     </>
   );

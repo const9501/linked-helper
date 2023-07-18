@@ -1,19 +1,37 @@
 .wrapper {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
   background-color: #ffffff;
-  //border-radius: 5px;
-  padding: 20px;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.3);
+
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows .2s ease-in;
+
+
+  //height: 0;
+  //overflow: hidden;
+  //transition: height .2s ease;
+
+
+  .heading {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .varNamesButtonsWrapper {
+    display: flex;
+    gap: 10px;
+    margin-top: 50px;
+  }
+
+ &.open {
+   grid-template-rows: 1fr;
+   //padding: 20px;
+ }
+
 }
 
-.heading {
-  font-size: 22px;
-  text-align: center;
-}
 
-.varNamesButtonsWrapper {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
+
