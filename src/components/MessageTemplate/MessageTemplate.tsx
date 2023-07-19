@@ -3,7 +3,8 @@ import VarNameButton from "../ui/VarNameButton/VarNameButton";
 import AddIfButton from "../AddIfButton/AddIfButton";
 import Textarea from "../ui/Textarea/Textarea";
 import Button from "../ui/Button/Button";
-import {useState} from "react";
+import React, {useState} from "react";
+import {useRef} from "react";
 
 interface IMessageTemplate {
   isOpen: boolean
@@ -18,11 +19,14 @@ const arrVarNames: string[] = ['{firstname}', '{lastname}', '{company}', '{posit
 
 const MessageTemplate = ({isOpen}: IMessageTemplate) => {
 
-  // const [firstTextarea, setFirstTextarea] = useState('')
   const [inputs, setInputs] = useState<IInput[]>([
-    {text: '', isActive: false},
-    {text: '', isActive: false},
+    {text: '1', isActive: false},
+    {text: '2', isActive: false},
+    {text: '3', isActive: false},
   ])
+
+  const [inputInfo, setInputInfo] = useState<HTMLTextAreaElement | null>(null)
+  console.log(inputInfo);
 
   return (
     <div className={isOpen ? styles.wrapper + ' ' + styles.open : styles.wrapper}>
@@ -35,7 +39,6 @@ const MessageTemplate = ({isOpen}: IMessageTemplate) => {
           {arrVarNames.map((item, index) =>
             <VarNameButton
               key={index}
-              // onClick={() => setFirstTextarea(firstTextarea + item)}
               label={item}
             />
           )}
@@ -45,14 +48,17 @@ const MessageTemplate = ({isOpen}: IMessageTemplate) => {
           <AddIfButton/>
         </div>
 
+
+
         {
-          inputs.map((input, index, inputs) => (
+          inputs.map((input, index, array) => (
             <Textarea
               key={index}
               rows={4}
-              inputs={inputs}
+              input={input}
               setInputs={setInputs}
-              index={index}
+              setInputInfo={setInputInfo}
+              inputs={array}
             />
           ))
         }

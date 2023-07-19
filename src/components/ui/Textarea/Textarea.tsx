@@ -1,37 +1,34 @@
 import styles from "./Textarea.module.scss";
-import React, {Dispatch, SetStateAction, useState} from "react";
+import React, {Dispatch, MutableRefObject, SetStateAction, useRef, useState} from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import {IInput} from "../../MessageTemplate/MessageTemplate";
 
 
-interface ITeatarea {
+interface ITextarea {
   rows: number
-  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
+  input: IInput
   inputs: IInput[]
-  setInputs: Dispatch<SetStateAction<IInput[]>>
-  index: number
+  setInputs: (elem: IInput[]) => void
+  onClick?: () => void
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
+  setInputInfo: (elem: HTMLTextAreaElement | null) => void
 }
 
-const Textarea = ({rows, onChange, inputs, index, setInputs}: ITeatarea) => {
+const Textarea = ({rows, onChange, input, inputs, setInputs, setInputInfo}: ITextarea) => {
 
-
-  const handleChangeInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-
-  }
-
-  console.log(inputs[index].text);
+  const inputRef = useRef<HTMLTextAreaElement | null>(null)
 
   return (
     <>
       <TextareaAutosize
         minRows={rows}
         className={styles.textarea}
-        // value={inputs[index].text}
         onChange={event => {
-          const newInputs = inputs
-          newInputs[index].text = event.target.value
-          setInputs(newInputs)
+          setInputs([...inputs, {text: event.target.value, isActive: false}])
         }}
+        ref={inputRef}
+        onClick={() => setInputInfo(inputRef.current)}
+        value={input.text}
       />
     </>
   );
