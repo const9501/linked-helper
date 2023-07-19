@@ -7,30 +7,43 @@
   display: grid;
   grid-template-rows: 0fr;
   overflow: hidden;
-  transition: grid-template-rows .2s ease-in;
+  transition: grid-template-rows .3s ease;
 
-
-  //height: 0;
-  //overflow: hidden;
-  //transition: height .2s ease;
-
-
-  .heading {
-    font-size: 22px;
-    text-align: center;
-  }
-
-  .varNamesButtonsWrapper {
+  .animationWrapper {
+    min-height: 0;
     display: flex;
-    gap: 10px;
-    margin-top: 50px;
+    flex-direction: column;
+    gap: 20px;
+
+    .heading {
+      font-size: 22px;
+      text-align: center;
+    }
+
+    .varNamesButtons {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .addIfButton {
+      display: flex;
+      justify-content: center;
+    }
+
+    .actionButtons {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
   }
 
- &.open {
-   grid-template-rows: 1fr;
-   //padding: 20px;
- }
-
+  &.open {
+    grid-template-rows: 1fr;
+    padding: 20px;
+  }
 }
 
 

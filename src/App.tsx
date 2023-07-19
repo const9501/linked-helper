@@ -14,9 +14,7 @@ const App = () => {
           setMessageTemplateIsOpen(!messageTemplateIsOpen)
         }}
       />
-      <div style={{minHeight:'0'}}>
         <MessageTemplate isOpen={messageTemplateIsOpen}/>
-      </div>
 
     </div>
   );
