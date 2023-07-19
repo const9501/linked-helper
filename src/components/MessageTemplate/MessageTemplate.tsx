@@ -9,7 +9,7 @@ interface IMessageTemplate {
   isOpen: boolean
 }
 
-interface IInputs {
+export interface IInput {
   text: string
   isActive: boolean
 }
@@ -19,7 +19,7 @@ const arrVarNames: string[] = ['{firstname}', '{lastname}', '{company}', '{posit
 const MessageTemplate = ({isOpen}: IMessageTemplate) => {
 
   // const [firstTextarea, setFirstTextarea] = useState('')
-  const [inputs, setInputs] = useState<IInputs[]>([
+  const [inputs, setInputs] = useState<IInput[]>([
     {text: '', isActive: false},
     {text: '', isActive: false},
   ])
@@ -46,12 +46,13 @@ const MessageTemplate = ({isOpen}: IMessageTemplate) => {
         </div>
 
         {
-          inputs.map((input, index) => (
+          inputs.map((input, index, inputs) => (
             <Textarea
-              rows={4}
-              onChange={event => {}}
-              value={input.text}
               key={index}
+              rows={4}
+              inputs={inputs}
+              setInputs={setInputs}
+              index={index}
             />
           ))
         }
