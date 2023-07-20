@@ -6,9 +6,11 @@ import Button from "../ui/Button/Button";
 import React, {MutableRefObject, useState} from "react";
 import {useRef} from "react";
 import {log} from "util";
+import MessagePreview from "../MessagePreview/MessagePreview";
 
 interface IMessageTemplate {
   isOpen: boolean
+  setIsOpen: (isOpen: boolean) => void
 }
 
 export interface IInput {
@@ -18,13 +20,16 @@ export interface IInput {
 
 const arrVarNames: string[] = ['{firstname}', '{lastname}', '{company}', '{position}']
 
-const MessageTemplate = ({isOpen}: IMessageTemplate) => {
+const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
 
   const [inputs, setInputs] = useState<IInput[]>([
     {text: '', isActive: true},
   ])
 
   const inputRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
+
+  const [messagePreviewIsOpen, setMessagePreviewIsOpen] = useState(false)
+
 
   return (
     <div className={isOpen ? styles.wrapper + ' ' + styles.open : styles.wrapper}>
@@ -77,12 +82,21 @@ const MessageTemplate = ({isOpen}: IMessageTemplate) => {
         }
 
         <div className={styles.actionButtons}>
-          <Button label='Preview'/>
+          <Button
+            label='Preview'
+                  onClick={() => setMessagePreviewIsOpen(!messagePreviewIsOpen)}
+          />
           <Button label='Save'/>
-          <Button label='Close'/>
+          <Button
+            label='Close'
+            onClick={() => setIsOpen(!isOpen)}
+          />
         </div>
 
       </div>
+
+
+      <MessagePreview isOpen={messagePreviewIsOpen} setIsOpen={setMessagePreviewIsOpen}/>
 
     </div>
   );

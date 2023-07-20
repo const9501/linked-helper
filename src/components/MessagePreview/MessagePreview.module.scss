@@ -1,0 +1,84 @@
+.d-flex {
+  display: flex;
+}
+
+.modalWrapper {
+  width: 100%;
+  background-color: rgba(0, 0, 0, .3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(2px);
+
+  display: grid;
+  align-items: center;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows .3s ease;
+  
+  .modalBody {
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.3);
+    padding: 40px 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 0 auto;
+  }
+
+  .closeBtn {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: .5px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      animation: .3s rotate;
+    }
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      height: 18px;
+      width: 1px;
+      background-color: #000;
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+
+    @keyframes rotate {
+
+      100% {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .heading {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  &.open {
+    grid-template-rows: 1fr;
+    height: 100%;
+  }
+}

@@ -1,12 +1,10 @@
 import Button from "./components/ui/Button/Button";
 import MessageTemplate from "./components/MessageTemplate/MessageTemplate";
-import {useRef, useState} from "react";
+import {useState} from "react";
 
 const App = () => {
 
   const [messageTemplateIsOpen, setMessageTemplateIsOpen] = useState(false)
-
-  const inputRef = useRef()
 
   return (
     <div className='wrapper'>
@@ -16,8 +14,7 @@ const App = () => {
           setMessageTemplateIsOpen(!messageTemplateIsOpen)
         }}
       />
-        <MessageTemplate isOpen={messageTemplateIsOpen}/>
-
+        <MessageTemplate setIsOpen={setMessageTemplateIsOpen} isOpen={messageTemplateIsOpen}/>
 
     </div>
   );
