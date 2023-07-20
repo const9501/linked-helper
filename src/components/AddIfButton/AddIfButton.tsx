@@ -1,6 +1,5 @@
 import styles from "./AddIfButton.module.scss";
 
-
 const AddIfButton = () => {
   return (
     <button className={styles.button}>

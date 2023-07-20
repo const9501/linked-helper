@@ -26,7 +26,8 @@ const MessageTemplate = ({isOpen}: IMessageTemplate) => {
   ])
 
   const [inputInfo, setInputInfo] = useState<HTMLTextAreaElement | null>(null)
-  console.log(inputInfo);
+
+  console.log(inputs);
 
   return (
     <div className={isOpen ? styles.wrapper + ' ' + styles.open : styles.wrapper}>
@@ -40,6 +41,12 @@ const MessageTemplate = ({isOpen}: IMessageTemplate) => {
             <VarNameButton
               key={index}
               label={item}
+              onClick={() => {
+                const res = inputs.map((input) => {
+                  return input.isActive ? {...input, text: input.text+item} : {...input}
+                })
+                setInputs(res)
+              }}
             />
           )}
         </div>
@@ -54,6 +61,7 @@ const MessageTemplate = ({isOpen}: IMessageTemplate) => {
           inputs.map((input, index, array) => (
             <Textarea
               key={index}
+              index={index}
               rows={4}
               input={input}
               setInputs={setInputs}
