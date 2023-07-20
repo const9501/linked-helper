@@ -3,8 +3,9 @@ import VarNameButton from "../ui/VarNameButton/VarNameButton";
 import AddIfButton from "../AddIfButton/AddIfButton";
 import Textarea from "../ui/Textarea/Textarea";
 import Button from "../ui/Button/Button";
-import React, {useState} from "react";
+import React, {MutableRefObject, useState} from "react";
 import {useRef} from "react";
+import {log} from "util";
 
 interface IMessageTemplate {
   isOpen: boolean
@@ -20,14 +21,10 @@ const arrVarNames: string[] = ['{firstname}', '{lastname}', '{company}', '{posit
 const MessageTemplate = ({isOpen}: IMessageTemplate) => {
 
   const [inputs, setInputs] = useState<IInput[]>([
-    {text: '1', isActive: false},
-    {text: '2', isActive: false},
-    {text: '3', isActive: false},
+    {text: '', isActive: true},
   ])
 
-  const [inputInfo, setInputInfo] = useState<HTMLTextAreaElement | null>(null)
-
-  console.log(inputs);
+  const inputRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
   return (
     <div className={isOpen ? styles.wrapper + ' ' + styles.open : styles.wrapper}>
@@ -45,16 +42,24 @@ const MessageTemplate = ({isOpen}: IMessageTemplate) => {
                 const res = inputs.map((input) => {
                   return input.isActive ? {...input, text: input.text+item} : {...input}
                 })
+
                 setInputs(res)
               }}
             />
           )}
         </div>
 
-        <div className={styles.addIfButton}>
-          <AddIfButton/>
-        </div>
 
+        <div className={styles.addIfButton}>
+          <AddIfButton onClick={() => {
+            const textInInput = inputRef.current.value
+            const slicePosition = inputRef.current.selectionStart
+            const firstPart = textInInput.slice(0, slicePosition)
+            const secondPart = textInInput.slice(slicePosition)
+            const res = inputs.map((input) => input.isActive ? {...input, text: firstPart} : {...input})
+            setInputs([...res, {text: secondPart, isActive: false}])
+          }}/>
+        </div>
 
 
         {
@@ -65,19 +70,17 @@ const MessageTemplate = ({isOpen}: IMessageTemplate) => {
               rows={4}
               input={input}
               setInputs={setInputs}
-              setInputInfo={setInputInfo}
               inputs={array}
+              inputRef={inputRef}
             />
           ))
         }
-
 
         <div className={styles.actionButtons}>
           <Button label='Preview'/>
           <Button label='Save'/>
           <Button label='Close'/>
         </div>
-
 
       </div>
 

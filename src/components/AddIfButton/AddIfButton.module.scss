@@ -17,4 +17,9 @@
     border: 1px solid #949494;
     margin: 0 3px;
   }
+
+  &:hover {
+    background-color: #c5c5c5;
+    transition: .3s;
+  }
 }
