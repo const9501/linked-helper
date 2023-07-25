@@ -7,6 +7,7 @@ import React, {MutableRefObject, useState} from "react";
 import {useRef} from "react";
 import {log} from "util";
 import MessagePreview from "../MessagePreview/MessagePreview";
+import IfThenElse from "../IfThenElse/IfThenElse";
 
 interface IMessageTemplate {
   isOpen: boolean
@@ -57,6 +58,8 @@ const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
 
         <div className={styles.addIfButton}>
           <AddIfButton onClick={() => {
+            console.log(inputs);
+            console.log(inputRef);
             const textInInput = inputRef.current.value
             const slicePosition = inputRef.current.selectionStart
             const firstPart = textInInput.slice(0, slicePosition)
@@ -80,6 +83,8 @@ const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
             />
           ))
         }
+
+        <IfThenElse/>
 
         <div className={styles.actionButtons}>
           <Button
