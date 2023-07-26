@@ -5,7 +5,6 @@ import Textarea from "../ui/Textarea/Textarea";
 import Button from "../ui/Button/Button";
 import React, {MutableRefObject, useState} from "react";
 import {useRef} from "react";
-import {log} from "util";
 import MessagePreview from "../MessagePreview/MessagePreview";
 import IfThenElse from "../IfThenElse/IfThenElse";
 
@@ -46,7 +45,7 @@ const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
               label={item}
               onClick={() => {
                 const res = inputs.map((input) => {
-                  return input.isActive ? {...input, text: input.text+item} : {...input}
+                  return input.isActive ? {...input, text: input.text + item} : {...input}
                 })
 
                 setInputs(res)
@@ -89,7 +88,7 @@ const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
         <div className={styles.actionButtons}>
           <Button
             label='Preview'
-                  onClick={() => setMessagePreviewIsOpen(!messagePreviewIsOpen)}
+            onClick={() => setMessagePreviewIsOpen(!messagePreviewIsOpen)}
           />
           <Button label='Save'/>
           <Button
@@ -101,7 +100,10 @@ const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
       </div>
 
 
-      <MessagePreview isOpen={messagePreviewIsOpen} setIsOpen={setMessagePreviewIsOpen}/>
+      <MessagePreview
+        isOpen={messagePreviewIsOpen}
+        setIsOpen={setMessagePreviewIsOpen}
+      />
 
     </div>
   );
