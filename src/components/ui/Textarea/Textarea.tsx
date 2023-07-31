@@ -24,15 +24,15 @@ const Textarea = ({rows, onChange, index, input, inputs, setInputs, inputRef}: I
         minRows={rows}
         className={styles.textarea}
         onChange={event => {
-          const newInputs = inputs.map((input, i) => index === i ? {text: event.target.value, isActive: true} : {...input, isActive: false})
+          const newInputs = inputs.map((input, i) => index === i ? {...input, head: event.target.value, activePart: 'head'} : {...input, activePart: null})
           setInputs(newInputs)
         }}
-        ref={input.isActive ? inputRef : null}
+        ref={input.activePart ? inputRef : null}
         onClick={() => {
-          const newInputs = inputs.map((input, i) => index === i ? {...input, isActive: true} : {...input, isActive: false})
+          const newInputs = inputs.map((input, i) => index === i ? {...input, activePart: 'head'} : {...input, activePart: null})
           setInputs(newInputs)
         }}
-        value={input.text}
+        value={input.head}
       />
     </>
   );

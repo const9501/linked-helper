@@ -14,8 +14,12 @@ interface IMessageTemplate {
 }
 
 export interface IInput {
-  text: string
-  isActive: boolean
+  head: string
+  ifBlock: IInput | null
+  thenBlock: IInput | null
+  elseBlock: IInput | null
+  tail: string | null
+  activePart: string | null
 }
 
 const arrVarNames: string[] = ['{firstname}', '{lastname}', '{company}', '{position}']
@@ -23,12 +27,15 @@ const arrVarNames: string[] = ['{firstname}', '{lastname}', '{company}', '{posit
 const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
 
   const [inputs, setInputs] = useState<IInput[]>([
-    {text: '', isActive: true},
+    {head: '', ifBlock: null, thenBlock: null, elseBlock: null, tail: null, activePart: 'head'},
   ])
 
   const inputRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
   const [messagePreviewIsOpen, setMessagePreviewIsOpen] = useState(false)
+
+  console.log(inputs);
+  console.log(inputRef);
 
 
   return (
@@ -45,7 +52,7 @@ const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
               label={item}
               onClick={() => {
                 const res = inputs.map((input) => {
-                  return input.isActive ? {...input, text: input.text + item} : {...input}
+                  return input.activePart ? {...input, head: input.head + item} : {...input}
                 })
 
                 setInputs(res)
@@ -57,14 +64,13 @@ const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
 
         <div className={styles.addIfButton}>
           <AddIfButton onClick={() => {
-            console.log(inputs);
-            console.log(inputRef);
             const textInInput = inputRef.current.value
             const slicePosition = inputRef.current.selectionStart
             const firstPart = textInInput.slice(0, slicePosition)
             const secondPart = textInInput.slice(slicePosition)
-            const res = inputs.map((input) => input.isActive ? {...input, text: firstPart} : {...input})
-            setInputs([...res, {text: secondPart, isActive: false}])
+            const res = inputs.map((input) => input.activePart ? {...input, head: firstPart, tail: secondPart} : {...input})
+            setInputs(res)
+
           }}/>
         </div>
 
