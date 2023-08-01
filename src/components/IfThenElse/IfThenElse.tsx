@@ -20,7 +20,9 @@ const IfThenElse = () => {
       </div>
 
       <div className={styles.thenRow}>
-        <div className={styles.blockTitle}>THEN</div>
+        <div className={styles.blockTitle}>
+          THEN
+        </div>
 
         <div className={styles.textareaWrapper}>
           <TextareaAutosize minRows={2}/>
@@ -28,7 +30,9 @@ const IfThenElse = () => {
       </div>
 
       <div className={styles.elseRow}>
-        <div className={styles.blockTitle}>ELSE</div>
+        <div className={styles.blockTitle}>
+          ELSE
+        </div>
 
         <div className={styles.textareaWrapper}>
           <TextareaAutosize minRows={2}/>

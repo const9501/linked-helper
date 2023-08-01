@@ -12,10 +12,11 @@ interface ITextarea {
   setInputs: (elem: IInput[]) => void
   onClick?: () => void
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
-  inputRef: MutableRefObject<HTMLTextAreaElement>;
+  inputRef: MutableRefObject<HTMLTextAreaElement>
+  value: string
 }
 
-const Textarea = ({rows, onChange, index, input, inputs, setInputs, inputRef}: ITextarea) => {
+const Textarea = ({rows, onChange, index, input, inputs, setInputs, inputRef, value}: ITextarea) => {
 
 
   return (
@@ -32,7 +33,7 @@ const Textarea = ({rows, onChange, index, input, inputs, setInputs, inputRef}: I
           const newInputs = inputs.map((input, i) => index === i ? {...input, activePart: 'head'} : {...input, activePart: null})
           setInputs(newInputs)
         }}
-        value={input.head}
+        value={value}
       />
     </>
   );
