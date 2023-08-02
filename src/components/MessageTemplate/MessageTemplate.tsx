@@ -3,10 +3,9 @@ import VarNameButton from "../ui/VarNameButton/VarNameButton";
 import AddIfButton from "../AddIfButton/AddIfButton";
 import Textarea from "../ui/Textarea/Textarea";
 import Button from "../ui/Button/Button";
-import React, {MutableRefObject, useState} from "react";
+import React, {MutableRefObject, ReactNode, useState} from "react";
 import {useRef} from "react";
 import MessagePreview from "../MessagePreview/MessagePreview";
-import IfThenElse from "../IfThenElse/IfThenElse";
 import {v4 as uuidv4} from 'uuid';
 import TextareaAutosize from "react-textarea-autosize";
 
@@ -72,7 +71,7 @@ const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
   console.log(inputs);
   console.log(inputRef);
 
-  const renderTextArea = (input: IInput | null, index: number, array: IInput[], type: string | null): any => {
+  const renderTextArea = (input: IInput | null, index: number, array: IInput[], type: string | null): ReactNode => {
     switch (type) {
       case 'IF': {
         return (
@@ -185,12 +184,47 @@ const MessageTemplate = ({isOpen, setIsOpen}: IMessageTemplate) => {
             const slicePosition = inputRef.current.selectionStart
             const firstPart = textInInput.slice(0, slicePosition)
             const secondPart = textInInput.slice(slicePosition)
-            const res = inputs.map((input) => input.activePart ? {
-              ...input,
+            // const res = inputs.map((input) => input.activePart ? {
+            //   ...input,
+            //   head: firstPart,
+            //   tail: secondPart
+            // } : {...input})
+            // setInputs(res)
+
+            const newInput: IInput = {
+              id: inputs[0].id,
               head: firstPart,
-              tail: secondPart
-            } : {...input})
-            setInputs(res)
+              ifBlock: {
+                id: uuidv4(),
+                head: '',
+                ifBlock: null,
+                thenBlock: null,
+                elseBlock: null,
+                tail: null,
+                activePart: 'head'
+              },
+              thenBlock: {
+                id: uuidv4(),
+                head: '',
+                ifBlock: null,
+                thenBlock: null,
+                elseBlock: null,
+                tail: null,
+                activePart: 'head'
+              },
+              elseBlock: {
+                id: uuidv4(),
+                head: '',
+                ifBlock: null,
+                thenBlock: null,
+                elseBlock: null,
+                tail: null,
+                activePart: 'head'
+              },
+              tail: secondPart,
+              activePart: inputs[0].activePart,
+            }
+            setInputs([newInput])
 
           }}/>
         </div>
